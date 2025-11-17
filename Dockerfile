@@ -1,15 +1,25 @@
 FROM python:3.9-slim
 
 # Set the working directory in the container
+WORKDIR/app
 
+# Install system dependencies (If needed for numpy / sklearn)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install dependencies
+# Copy requirements first to leverage Docker caching
+COPY requirements.txt.
+
+# Install Python dependancies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy rest of application code
 from flask import Flask, request, render_template
 import pickle
 import numpy as np
 import time
 
-# Copy the rest of the application code
 app = Flask(__name__)
 
 weather_classes = ['clear', 'cloudy', 'drizzly', 'foggy', 'hazey', 'misty', 'rainy', 'smokey', 'thunderstorm']
@@ -26,7 +36,7 @@ def classify_weather(features):
 	
 	return prediction, latency
 
-# Run the app
+
 @app.route('/', methods=['GET', 'POST'])
 def home():
 	if request.method == 'POST':
@@ -63,4 +73,14 @@ def home():
 
 if __name__ == '__main__':
 	app.run(host="0.0.0.0", port=5000)
+
+#Expose port for Flask
+EXPOSE 5000
+
+
+# Run the app
+CMD ["python","app.py"]
+
+	
+
 
