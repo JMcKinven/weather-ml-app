@@ -1,7 +1,7 @@
 FROM python:3.9-slim
 
 # Set the working directory in the container
-WORKDIR/app
+WORKDIR /app
 
 # Install system dependencies (If needed for numpy / sklearn)
 RUN apt-get update && apt-get install -y --no-install-recommends \
