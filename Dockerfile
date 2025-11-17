@@ -15,10 +15,6 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy rest of application code
-from flask import Flask, request, render_template
-import pickle
-import numpy as np
-import time
 
 app = Flask(__name__)
 
