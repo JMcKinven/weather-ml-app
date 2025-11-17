@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first to leverage Docker caching
-COPY requirements.txt.
+COPY requirements.txt .
 
 # Install Python dependancies
 RUN pip install --no-cache-dir -r requirements.txt
