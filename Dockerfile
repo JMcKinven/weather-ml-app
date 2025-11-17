@@ -78,7 +78,7 @@ if __name__ == '__main__':
 EXPOSE 5000
 
 
-# Run the app
+#Start flash app
 CMD ["python","app.py"]
 
 	
