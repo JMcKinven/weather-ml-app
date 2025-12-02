@@ -28,10 +28,10 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/weather-ml-app:v1
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/weather-ml-app:1.0
 
       # (g) Deploy to Kubernetes with rolling update
       - name: Deploy to Kubernetes
         run: |
-          kubectl set image deployment/weather-app weather-app=${{ secrets.DOCKERHUB_USERNAME }}/weather-ml-app:v1
+          kubectl set image deployment/weather-app weather-app=${{ secrets.DOCKERHUB_USERNAME }}/weather-ml-app:1.0
           kubectl rollout status deployment/weather-app
