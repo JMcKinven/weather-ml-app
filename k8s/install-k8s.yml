@@ -1,0 +1,33 @@
+- name: Install Kubectl and Minikube
+  hosts: localhost
+  user: ubuntu
+  become: yes
+
+  tasks:
+    - name: Update APT Package Manager
+      apt:
+        update_cache: yes
+
+    - name: Install apt-transport-https
+      apt:
+        name: apt-transport-https
+        state: present
+
+    - name: Install Kubectl via Snap
+      snap:
+        name: kubectl
+        classic: yes
+
+    - name: Download Minikube
+      shell:
+        cmd: curl -Lo /usr/local/bin/minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+
+    - name: Make Minikube executable
+      file:
+        path: /usr/local/bin/minikube
+        mode: '0755'
+
+    - name: Start Minikube
+      become: no
+      shell:
+        cmd: minikube start --driver=docker

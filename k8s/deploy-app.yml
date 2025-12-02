@@ -1,0 +1,20 @@
+- name: Deploy Weather App to Kubernetes
+  hosts: localhost
+  user: ubuntu
+  become: no
+
+  vars:
+    docker_image: YOUR_DOCKERHUB_USERNAME/weather-ml-app:v1
+
+  tasks:
+    - name: Create Kubernetes Deployment
+      shell:
+        cmd: kubectl create deployment weather-app --image={{ docker_image }}
+
+    - name: Expose Deployment as NodePort Service
+      shell:
+        cmd: kubectl expose deployment weather-app --type=NodePort --port=5000
+
+    - name: Scale Deployment to 3 replicas
+      shell:
+        cmd: kubectl scale deployment weather-app --replicas=3
