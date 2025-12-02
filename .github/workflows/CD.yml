@@ -15,22 +15,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Login to DockerHub
-      - name: Docker Login
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      # (f) Push image to DockerHub
-      - name: Build and Push Docker Image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/weather-ml-app:1.0
-
-      # (g) Deploy to Kubernetes with rolling update
       - name: Deploy to Kubernetes
         run: |
           kubectl set image deployment/weather-app weather-app=${{ secrets.DOCKERHUB_USERNAME }}/weather-ml-app:1.0
