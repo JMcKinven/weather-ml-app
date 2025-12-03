@@ -17,5 +17,5 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl set image deployment/weather-app weather-ml-app=${{ secrets.DOCKERHUB_USERNAME }}/weather-ml-app:2.0
+          kubectl set image deployment/weather-app weather-ml-app=${{ secrets.DOCKERHUB_USERNAME }}/weather-ml-app:1.0
           kubectl rollout status deployment/weather-app
