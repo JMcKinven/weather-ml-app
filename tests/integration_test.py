@@ -34,7 +34,7 @@ class TestModelAppIntegration(unittest.TestCase):
 		html_text = response.data.decode('utf-8').lower()
 		valid_classes = [
 			'clear', 'cloudy', 'drizzly', 'foggy', 'hazey',
-			'misty', 'rain', 'smokey', 'thunderstorm'
+			'misty', 'rainy', 'smokey', 'thunderstorm'
 		]
 		found = any(weather in html_text for weather in valid_classes)
 		
