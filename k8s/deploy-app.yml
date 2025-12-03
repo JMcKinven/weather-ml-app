@@ -4,7 +4,7 @@
   become: no
 
   vars:
-    docker_image: adamstephen/weather-ml-app:1.0
+    docker_image: jmckinven/weather-ml-app:1.0
 
   tasks:
     - name: Create Kubernetes Deployment
